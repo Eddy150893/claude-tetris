@@ -47,7 +47,8 @@ jobs:
                `gh issue comment ${{ github.event.issue.number }} --edit-last --create-if-none --body-file /tmp/diagnostico.md`
                (así se mantiene un único comentario que se actualiza en cada edición).
 
-            Formato del comentario (markdown, en español). Primera línea exacta: `<!-- claude-issue-triage -->`
+            Formato del comentario (en español). Debe estar en Markdown compatible con GitHub (GFM): encabezados, listas, tablas, bloques de código con lenguaje (```js), `código inline` y checkboxes `- [ ]` para que GitHub lo renderice correctamente.
+            Primera línea exacta: `<!-- claude-issue-triage -->`
             Secciones:
             - **Resumen**: qué se reporta/solicita.
             - **Tipo y labels**: labels asignados con razón breve.
