@@ -39,6 +39,10 @@ const overlay = document.getElementById('overlay');
 const overlayTitle = document.getElementById('overlay-title');
 const overlayScore = document.getElementById('overlay-score');
 const restartBtn = document.getElementById('restart-btn');
+const themeBtn = document.getElementById('theme-toggle');
+
+let gridColor = '#22222e';
+let ghostAlpha = 0.2;
 
 let board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval, animId;
 
@@ -169,7 +173,7 @@ function drawBlock(context, x, y, colorIndex, size, alpha) {
 }
 
 function drawGrid() {
-  ctx.strokeStyle = '#22222e';
+  ctx.strokeStyle = gridColor;
   ctx.lineWidth = 0.5;
   for (let c = 1; c < COLS; c++) {
     ctx.beginPath();
@@ -199,7 +203,7 @@ function draw() {
   for (let r = 0; r < current.shape.length; r++)
     for (let c = 0; c < current.shape[r].length; c++)
       if (current.shape[r][c])
-        drawBlock(ctx, current.x + c, gy + r, current.shape[r][c], BLOCK, 0.2);
+        drawBlock(ctx, current.x + c, gy + r, current.shape[r][c], BLOCK, ghostAlpha);
 
   // current piece
   for (let r = 0; r < current.shape.length; r++)
@@ -300,5 +304,35 @@ document.addEventListener('keydown', e => {
 });
 
 restartBtn.addEventListener('click', init);
+
+function applyTheme(theme, persist) {
+  const light = theme === 'light';
+  document.documentElement.dataset.theme = light ? 'light' : 'dark';
+  const styles = getComputedStyle(document.documentElement);
+  gridColor = styles.getPropertyValue('--grid').trim();
+  ghostAlpha = parseFloat(styles.getPropertyValue('--ghost-alpha'));
+  themeBtn.setAttribute('aria-pressed', String(light));
+  themeBtn.textContent = light ? '☾ Oscuro' : '☀ Claro';
+  themeBtn.setAttribute('aria-label', light ? 'Modo oscuro' : 'Modo claro');
+  if (persist) {
+    try { localStorage.setItem('theme', theme); } catch (e) {}
+  }
+  if (board && current) draw(); // refresca también en pausa / game over
+}
+
+themeBtn.addEventListener('click', () => {
+  const light = document.documentElement.dataset.theme !== 'light';
+  applyTheme(light ? 'light' : 'dark', true);
+  themeBtn.blur(); // devuelve el teclado al juego (Space = caída)
+});
+
+// Evita que Space active el botón enfocado al soltar la tecla
+document.addEventListener('keyup', e => {
+  if (e.code === 'Space') e.preventDefault();
+});
+
+let savedTheme = 'dark';
+try { savedTheme = localStorage.getItem('theme') ?? 'dark'; } catch (e) {}
+applyTheme(savedTheme, false);
 
 init();

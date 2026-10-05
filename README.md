@@ -181,6 +181,12 @@ Algunos parámetros fáciles de tunear en `game.js`:
 
 ---
 
+## Tema claro/oscuro
+
+El juego inicia en modo oscuro. El botón del panel lateral alterna a modo claro y la preferencia se guarda en `localStorage`. Los colores viven en variables CSS (`:root` y `[data-theme="light"]` en `style.css`).
+
+---
+
 ## Licencia
 
 Proyecto de uso libre con fines educativos y de práctica.

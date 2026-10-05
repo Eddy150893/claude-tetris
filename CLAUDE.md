@@ -34,4 +34,8 @@ Control flow: `init()` builds the board and starts the loop → `loop()` ticks g
 
 Tunable constants are all at the top of `game.js` (`COLS`, `ROWS`, `BLOCK`, `COLORS`, `LINE_SCORES`, initial `dropInterval`). If `COLS`, `ROWS`, or `BLOCK` change, the `<canvas id="board">` `width`/`height` in `index.html` must be updated to match (`COLS × BLOCK`, `ROWS × BLOCK`).
 
+## Theme (light/dark)
+
+UI colors are CSS variables in `:root` (dark, default) and `[data-theme="light"]` in `style.css`. `applyTheme()` in `game.js` sets `data-theme` on `<html>`, caches `--grid` and `--ghost-alpha` for the canvas, persists the choice in `localStorage` (try/catch) and calls `draw()` so pause/game-over screens refresh. `#theme-toggle` calls `blur()` after click so it doesn't capture `Space`.
+
 README.md is in Spanish and contains the same architectural walkthrough in more detail.
