@@ -190,3 +190,11 @@ El juego inicia en modo oscuro. El botón del panel lateral alterna a modo claro
 ## Licencia
 
 Proyecto de uso libre con fines educativos y de práctica.
+
+## Tabla de records
+
+- Pantalla de inicio (overlay con botón **Jugar** y tabla); el loop no arranca hasta pulsar Jugar (`setupGame()` prepara el estado, `init()` inicia el loop).
+- Top 5 en `localStorage('records')` con `{name, score, lines, level, date}`; al game over, si la puntuación entra, aparece un campo de nombre (máx. 12 caracteres, Enter guarda) y la fila nueva se resalta.
+- `localStorage('bestStats')` guarda máximo de líneas y mejor combo (locks consecutivos que limpian ≥1 línea, calculado en `clearLines()`).
+- Botón **Borrar records** (con `confirm()`). Todo el acceso a `localStorage` va en try/catch.
+- El handler `keydown` ignora eventos originados en `input`.

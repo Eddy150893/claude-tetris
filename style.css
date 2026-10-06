@@ -17,6 +17,7 @@
   --shadow: rgba(0, 0, 0, 0.6);
   --glow: rgba(122, 162, 247, 0.4);
   --ghost-alpha: 0.2;
+  --highlight-bg: rgba(255, 213, 79, 0.2);
 }
 
 [data-theme="light"] {
@@ -38,6 +39,7 @@
   --shadow: rgba(40, 40, 80, 0.2);
   --glow: rgba(59, 91, 219, 0.25);
   --ghost-alpha: 0.35;
+  --highlight-bg: rgba(245, 160, 0, 0.25);
 }
 
 *, *::before, *::after {
@@ -225,4 +227,89 @@ kbd {
 
 #restart-btn:hover {
   background: var(--accent-hover);
+}
+
+/* ---- Records ---- */
+.hidden {
+  display: none !important;
+}
+
+.name-entry {
+  display: flex;
+  gap: 6px;
+}
+
+.name-entry input {
+  width: 130px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  user-select: text;
+}
+
+.name-entry input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+#save-record-btn,
+#clear-records-btn {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#save-record-btn:hover,
+#clear-records-btn:hover {
+  border-color: var(--accent);
+}
+
+.records {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  max-width: 280px;
+}
+
+#records-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  color: var(--text);
+  width: 100%;
+}
+
+#records-list li {
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+#records-list li.highlight {
+  background: var(--highlight-bg);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+#records-list li.empty {
+  color: var(--muted);
+  text-align: center;
+}
+
+#best-stats {
+  font-size: 11px;
+  color: var(--muted);
 }
