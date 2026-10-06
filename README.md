@@ -173,7 +173,7 @@ Algunos parámetros fáciles de tunear en `game.js`:
 | `COLS`         | Columnas del tablero                     | `10`                  |
 | `ROWS`         | Filas del tablero                        | `20`                  |
 | `BLOCK`        | Tamaño en píxeles de cada celda          | `30`                  |
-| `COLORS`       | Paleta de colores por tipo de pieza      | 7 colores             |
+| `SKINS`        | Skins (colores + función `block`)        | retro, neon, pastel, pixel |
 | `LINE_SCORES`  | Puntos por 1, 2, 3 o 4 líneas eliminadas | `[0,100,300,500,800]` |
 | `dropInterval` | Velocidad inicial de caída en ms         | `1000`                |
 
@@ -190,3 +190,7 @@ El juego inicia en modo oscuro. El botón del panel lateral alterna a modo claro
 ## Licencia
 
 Proyecto de uso libre con fines educativos y de práctica.
+
+## Skins
+
+El selector **SKIN** del panel lateral cambia la apariencia sin recargar: Retro (plano), Neon (fondo negro + `shadowBlur`), Pastel (bloques redondeados con `arcTo`) y Pixel art (bisel y textura). Cada entrada de `SKINS` define `colors[]`, `bg`/`grid` opcionales y `block()`. La preferencia se guarda en `localStorage('skin')` y convive con el tema claro/oscuro.
