@@ -34,6 +34,10 @@ Control flow: `init()` builds the board and starts the loop → `loop()` ticks g
 
 Tunable constants are all at the top of `game.js` (`COLS`, `ROWS`, `BLOCK`, `COLORS`, `LINE_SCORES`, initial `dropInterval`). If `COLS`, `ROWS`, or `BLOCK` change, the `<canvas id="board">` `width`/`height` in `index.html` must be updated to match (`COLS × BLOCK`, `ROWS × BLOCK`).
 
+## Pause menu
+
+`P`/`Escape` -> `togglePause()` shows `#overlay` with `data-mode="pause"` (`.pause-only` elements: resume, controls list, `#start-level` select; `#restart-btn` is shared with game over, `data-mode="over"`). While `paused`, keydown only goes to `menuKey()` (Up/Down move focus, Left/Right change level). `startLevel` persists in `localStorage('startLevel')`; `init()` copies it to `gameStartLevel` and `applyLevel()` computes `level = max(gameStartLevel, floor(lines/10)+1)` + `dropInterval`. Resume resets `dropAccum`/`lastTime`; buttons `blur()` after click.
+
 ## Theme (light/dark)
 
 UI colors are CSS variables in `:root` (dark, default) and `[data-theme="light"]` in `style.css`. `applyTheme()` in `game.js` sets `data-theme` on `<html>`, caches `--grid` and `--ghost-alpha` for the canvas, persists the choice in `localStorage` (try/catch) and calls `draw()` so pause/game-over screens refresh. `#theme-toggle` calls `blur()` after click so it doesn't capture `Space`.

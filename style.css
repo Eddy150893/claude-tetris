@@ -167,7 +167,10 @@ kbd {
 }
 
 .theme-toggle:focus-visible,
-#restart-btn:focus-visible {
+#restart-btn:focus-visible,
+#resume-btn:focus-visible,
+.menu-btn:focus-visible,
+#start-level:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -209,7 +212,8 @@ kbd {
   color: var(--accent);
 }
 
-#restart-btn {
+#restart-btn,
+#resume-btn {
   margin-top: 8px;
   background: var(--accent);
   color: var(--on-accent);
@@ -223,6 +227,60 @@ kbd {
   transition: background 0.15s;
 }
 
-#restart-btn:hover {
+#restart-btn:hover,
+#resume-btn:hover {
   background: var(--accent-hover);
+}
+
+/* ---- Menú de pausa ---- */
+.overlay:not([data-mode="pause"]) .pause-only {
+  display: none !important;
+}
+
+#overlay[data-mode="pause"] #overlay-title {
+  color: var(--accent);
+}
+
+.level-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+#start-level,
+.menu-btn {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.menu-btn:hover,
+#start-level:hover {
+  border-color: var(--accent);
+}
+
+#controls-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: left;
+}
+
+#controls-list[hidden] {
+  display: none;
+}
+
+#controls-list li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
