@@ -172,6 +172,34 @@ kbd {
   outline-offset: 2px;
 }
 
+/* ---- Selector de skin ---- */
+.skin-select {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.skin-select:hover {
+  border-color: var(--accent);
+}
+
+.skin-select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Neon fuerza tablero oscuro también en tema claro */
+[data-skin="neon"] #board,
+[data-skin="neon"] #next-canvas {
+  background: #05050c;
+  border-color: #2a2a4a;
+}
+
 /* ---- Overlay ---- */
 .overlay {
   position: absolute;

@@ -32,10 +32,14 @@ All game logic lives in `game.js` (~300 lines), organized around a small set of 
 
 Control flow: `init()` builds the board and starts the loop → `loop()` ticks gravity and calls `draw()` each frame → `lockPiece()` (called from gravity, soft drop, or hard drop) merges the piece into the board, clears lines, and spawns the next one → `spawn()` promotes `next` to `current` and generates a new `next`; if the new piece immediately collides, `endGame()` fires.
 
-Tunable constants are all at the top of `game.js` (`COLS`, `ROWS`, `BLOCK`, `COLORS`, `LINE_SCORES`, initial `dropInterval`). If `COLS`, `ROWS`, or `BLOCK` change, the `<canvas id="board">` `width`/`height` in `index.html` must be updated to match (`COLS × BLOCK`, `ROWS × BLOCK`).
+Tunable constants are all at the top of `game.js` (`COLS`, `ROWS`, `BLOCK`, `SKINS`, `LINE_SCORES`, initial `dropInterval`). If `COLS`, `ROWS`, or `BLOCK` change, the `<canvas id="board">` `width`/`height` in `index.html` must be updated to match (`COLS × BLOCK`, `ROWS × BLOCK`).
 
 ## Theme (light/dark)
 
 UI colors are CSS variables in `:root` (dark, default) and `[data-theme="light"]` in `style.css`. `applyTheme()` in `game.js` sets `data-theme` on `<html>`, caches `--grid` and `--ghost-alpha` for the canvas, persists the choice in `localStorage` (try/catch) and calls `draw()` so pause/game-over screens refresh. `#theme-toggle` calls `blur()` after click so it doesn't capture `Space`.
+
+## Skins
+
+`SKINS` (retro, neon, pastel, pixel) in `game.js`: each has `name`, `colors[]` (index 1-7), optional `bg`/`grid`, and `block(ctx, px, py, size, color)`. `drawBlock` wraps it in `save()/restore()` (resets `shadowBlur`/`globalAlpha`, ghost alpha included) so skins stay simple. `draw`, `drawGrid`, `drawNext` use the active skin, so the next canvas matches. `applySkin()` sets `data-skin` on `<html>`, persists `localStorage('skin')` (try/catch), redraws both canvases. `#skin-select` calls `blur()` after change. Neon forces a dark board in both themes (`bg` + CSS).
 
 README.md is in Spanish and contains the same architectural walkthrough in more detail.
