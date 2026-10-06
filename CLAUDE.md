@@ -39,3 +39,7 @@ Tunable constants are all at the top of `game.js` (`COLS`, `ROWS`, `BLOCK`, `COL
 UI colors are CSS variables in `:root` (dark, default) and `[data-theme="light"]` in `style.css`. `applyTheme()` in `game.js` sets `data-theme` on `<html>`, caches `--grid` and `--ghost-alpha` for the canvas, persists the choice in `localStorage` (try/catch) and calls `draw()` so pause/game-over screens refresh. `#theme-toggle` calls `blur()` after click so it doesn't capture `Space`.
 
 README.md is in Spanish and contains the same architectural walkthrough in more detail.
+
+## Records
+
+Top 5 `{name, score, lines, level, date}` en `localStorage('records')` y `{maxLines, maxCombo}` en `localStorage('bestStats')` (siempre try/catch vía `readStorage`/`writeStorage`). `setupGame()` prepara estado sin arrancar el loop; `init()` lo arranca (botón Jugar/Reiniciar); al cargar solo se llama `showStart()` (overlay con tabla). `combo` se actualiza en `clearLines()` (locks consecutivos con ≥1 línea). `endGame()` muestra input de nombre si `qualifies(score)`; el handler keydown ignora eventos de `input`.
